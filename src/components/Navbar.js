@@ -1,16 +1,16 @@
 import React from "react";
-// import { useEffect } from "react";
+import { useEffect } from "react";
+
+import $ from 'jquery'
 
 const Navbar = () => {
-  //   useEffect(() => {
-  //     const script = document.createElement("script");
-  //     script.src = "../JS/Toogle.js";
-  //     script.async = true;
-  //     document.body.appendChild(script);
-  //     return () => {
-  //       document.body.removeChild(script);
-  //     };
-  //   }, []);
+    useEffect(() => {
+      $(".menu-toggle-btn").click(function() {
+        $(this).toggleClass("fa-times");
+        $(".navigation-menu").toggleClass("active");
+      });
+
+    }, []);
 
   return (
     <header>
