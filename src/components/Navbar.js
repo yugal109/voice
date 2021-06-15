@@ -7,40 +7,40 @@ import $ from 'jquery'
 const Navbar = () => {
     useEffect(() => {
       $(".menu-toggle-btn").click(function() {
-        $(this).toggleClass("fa-times");
-        $(".navigation-menu").toggleClass("active");
+        $(this).toggleClassname("fa-times");
+        $(".navigation-menu").toggleClassname("active");
       });
 
     }, []);
 
   return (
     <header>
-      <div class="inner-width">
-        <a href="https://www.instagram.com/aashish_xetri/" class="logo">
+      <div className="inner-width">
+        <a href="https://www.instagram.com/aashish_xetri/" className="logo">
           {" "}
-          <i class="fas fa-home"> School </i>{" "}
+          <i className="fas fa-home"> School </i>{" "}
         </a>
-        <i class="menu-toggle-btn fas fa-bars"> </i>
-        <nav class="navigation-menu">
+        <i className="menu-toggle-btn fas fa-bars"> </i>
+        <nav className="navigation-menu">
           <Link to="/">
             {" "}
-            <i class="fas fa-home home"> </i> Home{" "}
+            <i className="fas fa-home home"> </i> Home{" "}
           </Link>
           <a href="#">
             {" "}
-            <i class="fas fa-align-left about"> </i> About{" "}
+            <i className="fas fa-align-left about"> </i> About{" "}
           </a>
           <a href="#">
             {" "}
-            <i class="fab fa-buffer works"> </i> Works{" "}
+            <i className="fab fa-buffer works"> </i> Works{" "}
           </a>
           <a href="#">
             {" "}
-            <i class="fas fa-users team"> </i> Team{" "}
+            <i className="fas fa-users team"> </i> Team{" "}
           </a>
           <a href="#">
             {" "}
-            <i class="fas fa-headset contact"> </i> Contact
+            <i className="fas fa-headset contact"> </i> Contact
           </a>
         </nav>
       </div>
