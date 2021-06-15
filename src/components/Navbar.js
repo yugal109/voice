@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
+import {Link} from "react-router-dom"
 
 import $ from 'jquery'
 
@@ -21,10 +22,10 @@ const Navbar = () => {
         </a>
         <i class="menu-toggle-btn fas fa-bars"> </i>
         <nav class="navigation-menu">
-          <a href="#">
+          <Link to="/">
             {" "}
             <i class="fas fa-home home"> </i> Home{" "}
-          </a>
+          </Link>
           <a href="#">
             {" "}
             <i class="fas fa-align-left about"> </i> About{" "}
