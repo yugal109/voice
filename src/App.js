@@ -9,6 +9,7 @@ import Error from "./components/Error"
 import "./css/new.css";
 import "./css/homeScreen.css";
 import "./css/footer.css";
+import "./css/sign-in-up.css";
 
 const App = () => {
   return (

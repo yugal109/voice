@@ -18,9 +18,28 @@ const LoginScreen = () => {
     },[])
 
     return (
-        <div>
-            This is login screen.
+        <section>
+      <form method="post" action="">
+        <div class="login-box">
+          <h1>Sign In</h1>
+          <div class="textbox">
+            <i class="fa fa-user"></i>
+            <input
+              type="text"
+              name="uName"
+              placeholder="Username"
+              required
+              autofocus=""
+            />
+          </div>
+          <div class="textbox">
+            <i class="fa fa-lock"></i>
+            <input type="password" placeholder="Password" name="pwd" required />
+          </div>
+          <input type="submit" class="btn" name="login" value="Sign In" />
         </div>
+      </form>
+    </section>
     )
 }
 
