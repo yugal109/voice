@@ -26,22 +26,22 @@ const Navbar = () => {
             {" "}
             <i className="fas fa-home home"> </i> Home{" "}
           </Link>
-          <a href="#">
+          <Link to="/sign-in">
             {" "}
             <i className="fas fa-align-left about"> </i> About{" "}
-          </a>
-          <a href="#">
+          </Link>
+          <Link to="/sign-up">
             {" "}
             <i className="fab fa-buffer works"> </i> Works{" "}
-          </a>
-          <a href="#">
+          </Link>
+          <Link to="#">
             {" "}
             <i className="fas fa-users team"> </i> Team{" "}
-          </a>
-          <a href="#">
+          </Link>
+          <Link to="#">
             {" "}
             <i className="fas fa-headset contact"> </i> Contact
-          </a>
+          </Link>
         </nav>
       </div>
     </header>
