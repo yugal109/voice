@@ -1,15 +1,66 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axy";
-import {Link} from "react-router-dom"
-import CanOrNot  from "../helpingfunc/CanOrNot";
-const RegisterScreen = ({history}) => {
+import { Link } from "react-router-dom"
+import CanOrNot from "../helpingfunc/CanOrNot";
+import ErrorAlert from "../components/ErrorAlert";
+import Spinner from "../components/Spinner"
 
-  const userInfo=localStorage.getItem("userInfo")
-  CanOrNot(userInfo,"/",history)
+const RegisterScreen = ({ history }) => {
+
+  const userInfo = localStorage.getItem("userInfo")
+  CanOrNot(userInfo, "/", history)
+
+  const [passnotmatch, setPassNotMatch] = useState("")
+
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState(false)
+
+  const [firstname, setFirstname] = useState("")
+  const [lastname, setLastname] = useState("")
+  const [username, setUsername] = useState("")
+  const [address, setAddress] = useState("")
+  const [phonenumber, setPhonenumber] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmpassword, setConfirmPassword] = useState("")
+
+  const handelSubmit = (e) => {
+    e.preventDefault()
+    setMessage("")
+    setLoading(true)
+    if (password != confirmpassword) {
+      setPassNotMatch("The passwords don't match.")
+      setLoading(false)
+    } else {
+      setPassNotMatch("")
+      axios.post("/users", {
+        firstname,
+        lastname,
+        email,
+        username,
+        phonenumber,
+        address,
+        password
+      })
+        .then((response) => {
+          setLoading(false)
+          if (response.data.message) {
+            setMessage(response.data.message)
+          } else {
+            history.push("/sign-in")
+          }
+        })
+        .catch((error) => {
+          setLoading(false)
+          setError(true)
+        })
+    }
+  }
 
   return (
     <section>
-      <form>
+      <form onSubmit={handelSubmit}>
         <div class="registration-box">
           <h1>Sign Up</h1>
           <div class="textbox">
@@ -19,19 +70,29 @@ const RegisterScreen = ({history}) => {
               placeholder="First Name"
               autofocus=""
               required
+              onChange={(e) => setFirstname(e.target.value)}
             />
           </div>
 
           <div class="textbox">
-            <input type="text" name="lName" placeholder="Last Name" required />
+            <input type="text" name="lName" placeholder="Last Name" required
+              onChange={(e) => setLastname(e.target.value)}
+
+            />
           </div>
 
           <div class="textbox">
-            <input type="text" name="uname" placeholder="Username" required />
+            <input type="text" name="uname" placeholder="Username" required
+              onChange={(e) => setUsername(e.target.value)}
+
+            />
           </div>
 
           <div class="textbox">
-            <input type="email" name="email" placeholder="Email" required />
+            <input type="email" name="email" placeholder="Email" required
+              onChange={(e) => setEmail(e.target.value)}
+
+            />
           </div>
 
           <div class="textbox">
@@ -40,6 +101,8 @@ const RegisterScreen = ({history}) => {
               name="password"
               placeholder="Password"
               required
+              onChange={(e) => setPassword(e.target.value)}
+
             />
           </div>
 
@@ -47,21 +110,35 @@ const RegisterScreen = ({history}) => {
             <input type="password" name="cPassword"
               placeholder="Confirm Password"
               required
+              onChange={(e) => setConfirmPassword(e.target.value)}
+
             />
           </div>
 
           <div class="textbox">
-            <input type="text" name="phNum" placeholder="Phone Number" required />
+            <input type="text" name="phNum" placeholder="Phone Number" required
+              onChange={(e) => setPhonenumber(e.target.value)}
+
+            />
           </div>
 
           <div class="textbox">
-            <input type="text" name="address" placeholder="Address" required />
-          </div>
+            <input type="text" name="address" placeholder="Address" required
+              onChange={(e) => setAddress(e.target.value)}
 
-          <div class="buttons">
-            <input type="submit" class="btn" value="Register" />
+            />
           </div>
-          <Link to="/sign-in">Already Have an account?SignIn</Link>
+          {loading ? <Spinner/> :
+            <div class="buttons">
+              <input type="submit" class="btn" value="Register" />
+            </div>
+          }
+
+
+          <small style={{color:"red"}}>{passnotmatch}</small>
+          {error && <ErrorAlert message={message}/>}
+          <small style={{color:"red"}}>{message}</small><br/>
+          <small><Link to="/sign-in">Already Have an account?Sign In</Link></small>
         </div>
       </form>
     </section>

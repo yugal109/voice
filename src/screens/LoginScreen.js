@@ -3,12 +3,14 @@ import axios from "../axy"
 import { Link } from "react-router-dom"
 import localStore from '../helpingfunc/localStore'
 import CanOrNot from '../helpingfunc/CanOrNot'
+import ErrorAlert from '../components/ErrorAlert'
+import Spinner from "../components/Spinner"
 import "../css/sign-in-up.css"
 
-const LoginScreen = ({history}) => {
+const LoginScreen = ({ history }) => {
 
-    const userInfo=localStorage.getItem("userInfo")
-    CanOrNot(userInfo,"/",history)
+    const userInfo = localStorage.getItem("userInfo")
+    CanOrNot(userInfo, "/", history)
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -18,12 +20,13 @@ const LoginScreen = ({history}) => {
     const handelLogin = (e) => {
         e.preventDefault();
         setLoading(true)
+        setError("")
         axios.post("/login", {
             email,
             password
         })
             .then((response) => {
-                localStore("userInfo",response.data)
+                localStore("userInfo", response.data)
                 setLoading(false)
             })
             .catch((error) => {
@@ -56,14 +59,16 @@ const LoginScreen = ({history}) => {
                             onChange={(e) => setPassword(e.target.value)}
                             type="password" placeholder="Password" name="pwd" required />
                     </div>
+                    <div>
+                        {loading ? <Spinner /> :
+                            <input type="submit" class="btn" name="login" value="Sign In" />
 
-                    {loading ? "Wait a damn second bitch!" :
-                        <input type="submit" class="btn" name="login" value="Sign In" />
+                        }
+                    </div>
+                    <div style={{margin:3,color:"red"}}><small>{error && <div style={{color:"red"}}>{error}</div>}</small></div>
+                    <small><Link to="/sign-up">Don't Have an account? Sign Up</Link></small>
 
-                    }
-                    <Link to="/sign-up">Don't Have an account? Register</Link>
-
-                    {error && <div>{error}</div>}
+                    
                 </div>
 
             </form>

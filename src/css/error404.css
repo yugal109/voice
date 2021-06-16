@@ -1,0 +1,22 @@
+.container{
+    transform: translateY(50%);
+    min-height: 60vh;
+}
+
+.error-template{
+    padding: 40px 15px;
+    text-align: center;
+    position: absolute;
+    top:50%;
+    left:45%;
+    transform :translate(-50%,-50%);
+}
+
+.error-actions{
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+.error-actions .btn{
+    margin-right:10px;
+}

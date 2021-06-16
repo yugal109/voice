@@ -1,17 +1,18 @@
 import React from "react";
 import { useEffect } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import $ from 'jquery'
 
 const Navbar = () => {
-    useEffect(() => {
-      $(".menu-toggle-btn").click(function() {
-        $(this).toggleClassname("fa-times");
-        $(".navigation-menu").toggleClassname("active");
-      });
+  useEffect(() => {
 
-    }, []);
+    $(".menu-toggle-btn").click(function () {
+      $(this).toggleClass("fa-times");
+      $(".navigation-menu").toggleClass("active");
+    });
+    
+  }, [$]);
 
   return (
     <header>
@@ -34,7 +35,7 @@ const Navbar = () => {
             {" "}
             <i className="fab fa-buffer works"> </i> Works{" "}
           </Link>
-          <Link to="#">
+          <Link to="/sign-out">
             {" "}
             <i className="fas fa-users team"> </i> Team{" "}
           </Link>

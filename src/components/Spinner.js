@@ -1,11 +1,11 @@
 import React from 'react'
-
+import "../css/spinner.css"
 
 const Spinners = () => {
     return (
-        <div>
-            
-        </div>
+
+        <div class="loading loading--full-height"></div>
+
     )
 }
 
