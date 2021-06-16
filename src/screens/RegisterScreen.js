@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axy";
+import {Link} from "react-router-dom"
+import CanOrNot  from "../helpingfunc/CanOrNot";
+const RegisterScreen = ({history}) => {
 
-const RegisterScreen = () => {
+  const userInfo=localStorage.getItem("userInfo")
+  CanOrNot(userInfo,"/",history)
+
   return (
     <section>
       <form>
@@ -56,6 +61,7 @@ const RegisterScreen = () => {
           <div class="buttons">
             <input type="submit" class="btn" value="Register" />
           </div>
+          <Link to="/sign-in">Already Have an account?SignIn</Link>
         </div>
       </form>
     </section>
