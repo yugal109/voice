@@ -15,13 +15,13 @@ const App = () => {
   return (
     <Router>
       <Navbar/>
-      <Switch>
+      {/* <Switch> */}
       <Route path="/" exact component={HomeScreen}/>
       <Route path="/sign-up" component={RegisterScreen}/>
       <Route path="/sign-in" component={LoginScreen}/>
       <Route path="/sign-out" component={LogoutScreen}/>
-      <Route component={Error}/>
-      </Switch>
+      {/* <Route component={Error}/> */}
+      {/* </Switch> */}
       <Footer/>
     </Router>
   );
