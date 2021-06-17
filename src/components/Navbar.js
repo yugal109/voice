@@ -14,7 +14,7 @@ const Navbar = () => {
     
   }, [$]);
 
-  const usr=localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")).username
+  // const usr=localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo")).username
 
   return (
     <header>
@@ -45,9 +45,9 @@ const Navbar = () => {
             {" "}
             <i className="fas fa-headset contact"> </i> Contact
           </Link>
-          {/* {{username}} */}
+          
         </nav>
-        <h2 style={{color:"green"}}>{usr}</h2>
+
       </div>
     </header>
   );
