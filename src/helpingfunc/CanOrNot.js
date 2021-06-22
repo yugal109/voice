@@ -6,7 +6,7 @@ function CanOrNot(storageName,path,history){
         if(storageName){
           history.push(path)
         }
-      },[storageName])
+      },[storageName,path,history])
 
 }
 export default CanOrNot;

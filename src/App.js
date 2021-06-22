@@ -6,7 +6,10 @@ import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen"
 import RegisterScreen from "./screens/RegisterScreen"
 import LogoutScreen from "./screens/LogoutScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 import Error from "./components/Error"
+import JoinScreen from "./screens/JoinScreen";
+import Chat from "./screens/ChatScreen";
 import "./css/new.css";
 import "./css/homeScreen.css";
 import "./css/footer.css";
@@ -15,13 +18,17 @@ const App = () => {
   return (
     <Router>
       <Navbar/>
-      {/* <Switch> */}
+      <Switch>
       <Route path="/" exact component={HomeScreen}/>
       <Route path="/sign-up" component={RegisterScreen}/>
       <Route path="/sign-in" component={LoginScreen}/>
       <Route path="/sign-out" component={LogoutScreen}/>
-      {/* <Route component={Error}/> */}
-      {/* </Switch> */}
+      <Route path="/profile/:id" component={ProfileScreen}/>
+      <Route path="/join" component={JoinScreen}/>
+      <Route path="/chat" component={Chat} />
+      
+      <Route component={Error}/>
+      </Switch>
       <Footer/>
     </Router>
   );

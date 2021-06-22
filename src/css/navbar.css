@@ -1,0 +1,16 @@
+nav{
+   
+    text-decoration: none;
+    text-emphasis: none;
+    
+}
+Link{
+    text-decoration: none;
+}
+.top{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+ 
+    
+}

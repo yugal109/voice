@@ -37,6 +37,7 @@ const LoginScreen = ({ history }) => {
             .then((response) => {
                 localStore("userInfo", response.data)
                 setLoading(false)
+                window.location.reload(true);
             })
             .catch((error) => {
                 console.log(error)
@@ -51,8 +52,10 @@ const LoginScreen = ({ history }) => {
             tokenId: response.tokenId
         })
             .then((rsp) => {
-                localStorage.setItem("userInfo", rsp.data)
+                localStore("userInfo", rsp.data)
+                console.log("Google info is ",rsp)
                 setLoading(false)
+                window.location.reload(true);
                 history.push("/")
 
             })
@@ -77,8 +80,10 @@ const LoginScreen = ({ history }) => {
             data:response
         })
         .then((rsp)=>{
-            localStorage.setItem("userInfo", rsp.data)
+            localStore("userInfo", rsp.data)
                 setLoading(false)
+                window.location.reload(true);
+
                 history.push("/")
         })
         .catch((error)=>{

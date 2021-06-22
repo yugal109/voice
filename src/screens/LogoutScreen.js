@@ -6,6 +6,8 @@ const LogoutScreen = ({history}) => {
     CanOrNot(!userInfo,"/",history)
     const handelLogout=()=>{
         localStorage.removeItem("userInfo")
+        window.location.reload(true);
+
         history.push("/")
     }
     const handelGoBack=()=>{
