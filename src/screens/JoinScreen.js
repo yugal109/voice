@@ -51,7 +51,7 @@ const JoinScreen = ({history}) => {
             <button onClick={handelCreate} className={'button mt-20'}>Create</button>
                     
                 </div>
-                {creatinglink && <Spinner/>}
+                {/* {creatinglink && <Spinner/>} */}
                 {roomId && 
                 <>
                 <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>    
