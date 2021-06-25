@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import queryString from 'query-string';
 import { TextField } from '@material-ui/core'
 import io from "socket.io-client";
+import Spinner from "../components/Spinner"
 import "../css/chat.css"
-
+const jwt = require("jsonwebtoken")
 // import TextContainer from '../TextContainer/TextContainer';
 // import Messages from '../Messages/Messages';
 // import InfoBar from '../InfoBar/InfoBar';
@@ -16,77 +17,132 @@ const ENDPOINT = 'https://voice101.herokuapp.com';
 let socket;
 
 const Chat = ({ location }) => {
-    const { id, room } = queryString.parse(location.search);
+    const user = localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))
 
-  const [name, setName] = useState('');
-  const [text, setText] = useState('');
-  const [msg,setMsg]=useState("")
-  const [fire,setFire]=useState(false)
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+    let { id, room } = queryString.parse(location.search);
+    room = jwt.verify(room, "mysecretkey101").roomid;
 
-  useEffect(() => {
-    const { id, room } = queryString.parse(location.search);
 
-    socket = io(ENDPOINT);
-    
+    const [name, setName] = useState('');
+    const [loading, setLoading] = useState(false)
+    const [text, setText] = useState('');
+    const [msg, setMsg] = useState("")
+    const [fire, setFire] = useState(false)
+    const [message, setMessage] = useState('');
+    const [cur, setCur] = useState("")
+    const [messages, setMessages] = useState([]);
 
-    socket.emit("join",{id,room},({error})=>{
-        console.log(error)
-    })
+    useEffect(() => {
+        let { id, room } = queryString.parse(location.search);
+        room = jwt.verify(room, "mysecretkey101").roomid;
 
-    socket.on("message",data=>{
+        socket = io(ENDPOINT);
+
+
+        socket.emit("join", { id, room }, ({ error }) => {
+            console.log(error)
+        })
+
+        socket.on("message", data => {
+
+            setMsg(data.text);
+        })
+
+
+        return () => {
+            // socket.emit("disconnect")
+            socket.off();
+        }
+    }, [ENDPOINT, location.search])
+
+
+    useEffect(() => {
+        // setLoading(true)
         
-        setMsg(data.text);
-    })
+        socket.on('allmessage', ({ messages }) => {
+            setMessages(messages)
+            setCur("")
+            // setLoading(false)
+        })
+    }, [])
 
-    return ()=>{
-        // socket.emit("disconnect")
-        socket.off();
+    const handelSend = (e) => {
+        e.preventDefault()
+        setCur(text)
+        socket.emit("sendMessage", { id, room, message: text })
+        setText("")
     }
-  },[ENDPOINT,location.search])
 
-
-  useEffect(()=>{
-
-      socket.on('allmessage',({messages})=>{
-          setMessages(messages)
-      })
-  },[])
-
-  const handelSend=(e)=>{
-      e.preventDefault()
-      socket.emit("sendMessage",{id,room,message:text})
-      setText("")
-  }
-
-  return (
-    <div className="prof">
+    const handelChange=(e)=>{
         
+        setText(e.target.value)
+        socket.emit("yugal",{dat:"Typing........"})
+        console.log("Typingggggg")
+    }
+
+    return (
+        <div className="prof">
+
             <div className="card">
-            {msg}
-            <br/>
-        
-      Chat
-      <br/>
-      <div className="messages">
-      {messages?.map((msg)=>(
-          <>
-          <div className="message">
-              {msg?.message}
-              </div>
-        
-          </>
-      ))}
-      </div>
+                {msg}
+                <br />
 
-      <form onSubmit={handelSend}>
-      <TextField value={text} onChange={e=>setText(e.target.value)} className="field" id="outlined-basic" variant="outlined" />
-      <button type="submit" >Send</button>
-      </form>
-    </div>
-    </div>
-  );
+                Chat
+                <br />
+
+                {loading ? <Spinner /> :
+                    <div className="messages">
+                        {messages?.map((msg) => (
+                            <>
+
+                                {(user.id == msg.user) ?
+                                    <>
+                                    <div className="right ">
+                                        <div key={msg._id} className="myMsg container-fluid">
+                                            {msg?.message}
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    </>
+
+
+                                    :
+                                    <div>
+                                        <div key={msg._id} className="othersMsg">
+                                            {msg?.message}
+                                        </div>
+                                    </div>
+
+                                }
+
+
+                            </>
+                        ))}
+
+                        {cur &&
+
+                            <div className="right ">
+                                <div className="myMsg container-fluid">
+                                    {cur}
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+
+                }
+
+
+
+                <form onSubmit={handelSend}>
+                    <TextField value={text} onChange={e=>handelChange(e)} className="field" id="outlined-basic" variant="outlined" />
+                    <button type="submit" >Send</button>
+                </form>
+            </div>
+        </div>
+    );
 }
 
 export default Chat;

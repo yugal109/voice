@@ -66,7 +66,7 @@ const LoginScreen = ({ history }) => {
             })
     }
     const responsefailedGoogle = (response) => {
-        setError("EROOORRR")
+        // setError("EROOORRR")
     }
 
     const facebookLogin=(response)=>{

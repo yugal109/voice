@@ -40,11 +40,12 @@ const Navbar = () => {
               {" "}
               <i className="fas fa-home home"> </i> Home{" "}
             </Link>
-            <Link to="/about">
-              {" "}
-              <i className="fas fa-align-left about"> </i> About{" "}
-            </Link>
+            
             {usr ?<>
+              <Link to="/join">
+              {" "}
+              <i className="fas fa-align-left about"> </i> Join{" "}
+            </Link>
               <Link to="/sign-out">
                 {" "}
                 <i className="fas fa-users team"> </i> Sign-Out{" "}
