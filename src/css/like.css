@@ -1,0 +1,15 @@
+.like-strip{
+    background-color: white;
+    color:red;
+    
+}
+.like-list{
+    display:flex;
+    flex-direction: row;
+    
+}
+.reacts{
+    padding:5;
+    color:green,
+    
+}

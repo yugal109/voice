@@ -7,14 +7,10 @@ import MyMessage from "../components/MyMessage"
 import OtherMessage from "../components/OtherMessage";
 import "../css/chat.css"
 const jwt = require("jsonwebtoken")
-// import TextContainer from '../TextContainer/TextContainer';
-// import Messages from '../Messages/Messages';
-// import InfoBar from '../InfoBar/InfoBar';
-// import Input from '../Input/Input';
 
-// import '../css/chat.css';
-
-const ENDPOINT = 'http://localhost:5003';
+const ENDPOINT = 'http://localhost:5003'
+// http://localhost:5003';
+// https://voice101.herokuapp.com
 
 let socket;
 
@@ -23,6 +19,7 @@ const Chat = ({ location }) => {
 
     let { id, room } = queryString.parse(location.search);
     room = jwt.verify(room, "mysecretkey101").roomid;
+    console.log(room)
 
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(false)
@@ -32,12 +29,18 @@ const Chat = ({ location }) => {
     const [message, setMessage] = useState('');
     const [cur, setCur] = useState("")
     const [messages, setMessages] = useState([]);
+
+    useEffect(()=>{
+        //CHECK IF THE ROOM EXISTS
+
+    },[])
     
     useEffect(() => {
         let { id, room } = queryString.parse(location.search);
         room = jwt.verify(room, "mysecretkey101").roomid;
+        console.log("Room",room)
 
-        socket = io(ENDPOINT);
+        socket = io.connect(ENDPOINT);
 
 
         socket.emit("join", { id, room }, ({ error }) => {
@@ -59,6 +62,7 @@ const Chat = ({ location }) => {
         // setLoading(true)
 
         socket.on('allmessage', ({ messages }) => {
+            socket.emit("")
             setMessages(messages)
             setCur("")
             // setLoading(false)
@@ -81,6 +85,7 @@ const Chat = ({ location }) => {
     }
 
     return (
+        <>
         <div className="prof">
 
             <div className="card">
@@ -122,6 +127,7 @@ const Chat = ({ location }) => {
 
             </div>
         </div>
+        </>
     );
 }
 

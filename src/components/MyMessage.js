@@ -1,29 +1,56 @@
-import React,{useState} from 'react'
-import "../css/message.css"
-const MyMessage = ({msg,socket,room,id,fire,setFire}) => {
-    const [react,setReact]=useState("")
+import React, { useState, useEffect } from "react";
+import "../css/message.css";
+import Like from "./Like";
+import axios from "../axy";
+
+let socket;
+
+const MyMessage = ({ msg, socket, room, id }) => {
+  const [react, setReact] = useState("");
+  const [reactionArray, setReactionArray] = useState([]);
+  const [likeList, setLikeList] = useState(false);
+  const [reactionNumber, setReactionNumber] = useState(0);
+  const [fire, setFire] = useState(false);
+
+  useEffect(()=>{
     
-    const handelReact = (msgid) => {
-        socket.emit("reacting", { room, id, msgid, react })
-        
-    }
+  },[reactionNumber])
+  
+  const num = (number) => {
+    setReactionNumber(number);
+  };
 
-    return (
-        <div>
-            <div className="right ">
-                <div key={msg._id} className="myMsg container-fluid">
-                    {msg?.message}
-                </div>
-                {
-                    msg.reacts.map((rct) => (
-                        <small>{rct.reaction}</small>
-                    ))
-                }
-                <button onClick={e => handelReact(msg._id,react)}>React</button>
-                <input value={react} onChange={e => setReact(e.target.value)} />
-            </div>
+  const handelMessageLike = () => {
+    setLikeList(!likeList);
+  };
+
+  return (
+    <div>
+      <div className="right">
+        <div style={{ marginRight: 5 }}>
+          {likeList && (
+            <Like
+              key={msg._id}
+              num={num}
+              fire={fire}
+              setFire={setFire}
+              id={msg._id}
+            />
+          )}
         </div>
-    )
-}
 
-export default MyMessage
+        <div
+          onTouchMove={PointerEvent}
+          onClick={handelMessageLike}
+          key={msg?._id}
+          className="myMsg container-fluid"
+        >
+          {msg?.message}
+        </div>
+        <span>{reactionNumber}</span>
+      </div>
+    </div>
+  );
+};
+
+export default MyMessage;

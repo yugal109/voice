@@ -1,80 +1,136 @@
-import axios from '../axy'
-import React, { useState, useEffect } from 'react'
-import Spinner from "../components/Spinner"
-import {Link} from "react-router-dom"
-import "../css/join.css"
+import axios from "../axy";
+import React, { useState } from "react";
+import "../css/join.css";
+import { Button } from "@material-ui/core";
+import copy from "copy-to-clipboard";
+import TextField from "@material-ui/core/TextField";
 
+const JoinScreen = ({ history }) => {
+  const user =
+    localStorage.getItem("userInfo") &&
+    JSON.parse(localStorage.getItem("userInfo"));
 
+  const [room, setRoom] = useState("");
+  const [roomId, setRoomId] = useState("");
+  const [roomName, setRoomname] = useState("");
+  const [creatinglink, setCreatingLink] = useState(false);
 
-const JoinScreen = ({history}) => {
-    const user=localStorage.getItem("userInfo")&& JSON.parse(localStorage.getItem("userInfo"))
-    const [name, setName] = useState("")
-    const [room, setRoom] = useState("")
-    const [roomId,setRoomId]=useState("")
-    const [creatinglink,setCreatingLink]=useState(false)
+  const handelCreate = () => {
+    setCreatingLink(true);
+    axios
+      .post(
+        "/create",
+        {
+          data: true,
+          name: roomName,
+        },
+        {
+          headers: {
+            "Content-Type": "Application/json",
+            "x-auth-token": user.token,
+          },
+        }
+      )
+      .then((response) => {
+        setCreatingLink(false);
+        setRoomId(response.data.roomId);
+      })
+      .catch((error) => {
+        setCreatingLink(false);
+        console.log(error);
+      });
+  };
 
-    const handelCreate=()=>{
-        setCreatingLink(true)
-        axios.post("/create",{
-            data:true
-        },{
-                headers: {
-                    "Content-Type": "Application/json",
-                    "x-auth-token": user.token
-                } 
-        })
-        .then((response)=>{
-        setCreatingLink(false)
-            setRoomId(response.data.roomId)
-            
-            
-        })
-        .catch((error)=>{
-        setCreatingLink(false)
-            console.log(error)
-        })
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    history.push(`/chat?id=${user.id}&room=${room}`);
+  };
 
-    }
+  const copyToClipboard = () => {
+    copy(roomId);
+  };
 
-    const handelSubmit=(e)=>{
-        e.preventDefault()
-        history.push(`/chat?id=${user.id}&room=${room}`)
-    }
+  return (
+    <div className="outer">
+      <div>
+        <div className="Caard">
+          <h2>Create Room</h2>
 
+          <div style={{ margin: 10 }}>
+            <TextField
+              id="outlined-basic"
+              label="Enter name of room"
+              variant="outlined"
+              value={roomName}
+              onChange={(e) => setRoomname(e.target.value)}
+            />
+          </div>
+          {roomName ? (
+            <Button onClick={handelCreate} variant="contained" color="primary">
+              Create
+            </Button>
+          ) : (
+            <Button
+              onClick={handelCreate}
+              variant="contained"
+              color="primary"
+              disabled
+            >
+              Create
+            </Button>
+          )}
 
-    return (
-        <div>
-            <div className="joinOuterContainer">
-            <div className="joinInnerContainer">
-                    <h1 className="heading">Create Link</h1>
-                    
-            <button onClick={handelCreate} className={'button mt-20'}>Create</button>
-                    
-                </div>
-                {/* {creatinglink && <Spinner/>} */}
-                {roomId && 
-                <>
-                <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>    
-                <span style={{color:"white"}}>{roomId}</span>
-                <button style={{width:"40%",marginTop:10}}>Copy</button>    
-                </div>  
-                </>}
-                <div className="joinInnerContainer">
-                    
-                    <h1 className="heading">Join</h1>
-                   <form onSubmit={handelSubmit}>
-                    <div>
-                        <input placeholder="Room" className="joinInput mt-20" type="text" onChange={(event) => setRoom(event.target.value)} />
-                    </div>
-                    
-                        <button className={'button mt-20'} type="submit">Sign In</button>
-                    
-                    </form>
-                </div>
-            </div>
-
+          {roomId && (
+            <>
+              <div className="link-div">
+                <div style={{padding:10,margin:10,backgroundColor:"white"}}>{roomId}</div>
+                <Button
+                  onClick={copyToClipboard}
+                  variant="contained"
+                  color="primary"
+                >
+                  Copy
+                </Button>
+              </div>
+            </>
+          )}
         </div>
-    )
-}
+      </div>
+      <div>
+        <div className="Caard">
+          <h2>Join Room</h2>
 
-export default JoinScreen
+          <TextField
+            id="outlined-basic"
+            label="Enter"
+            variant="outlined"
+            onChange={(event) => setRoom(event.target.value)}
+          />
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {room ? (
+              <Button
+                onClick={handelSubmit}
+                variant="contained"
+                color="primary"
+              >
+                Enter
+              </Button>
+            ) : (
+              <Button
+                onClick={handelSubmit}
+                variant="contained"
+                color="primary"
+                disabled
+              >
+                Enter
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default JoinScreen;

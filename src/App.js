@@ -11,6 +11,7 @@ import Error from "./components/Error"
 import JoinScreen from "./screens/JoinScreen";
 import Chat from "./screens/ChatScreen";
 import MsgScreen from "./screens/MsgScreen";
+import InboxScreen from "./screens/RookLinkScreen";
 import "./css/new.css";
 import "./css/homeScreen.css";
 import "./css/footer.css";
@@ -27,7 +28,8 @@ const App = () => {
       <Route path="/profile/:id" component={ProfileScreen}/>
       <Route path="/join" component={JoinScreen}/>
       <Route path="/chat" component={Chat} />
-      <Route path="/msg" component={MsgScreen} />      
+      <Route path="/msg" component={MsgScreen} />   
+      <Route path="/inbox" component={InboxScreen}/>   
       <Route component={Error}/>
       </Switch>
       <Footer/>

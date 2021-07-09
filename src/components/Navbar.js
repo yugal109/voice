@@ -46,6 +46,10 @@ const Navbar = () => {
               {" "}
               <i className="fas fa-align-left about"> </i> Join{" "}
             </Link>
+            <Link to="/inbox">
+              {" "}
+              <i className="fas fa-align-left about"> </i> Room Links{" "}
+            </Link>
               <Link to="/sign-out">
                 {" "}
                 <i className="fas fa-users team"> </i> Sign-Out{" "}
