@@ -1,7 +1,6 @@
 import axios from "axios"
-// https://voice101.herokuapp.com/
-// http://localhost:5003
-const baseURL="http://localhost:5003"
+import URL from "./url"
+const baseURL=URL
 const Axios = axios.create({
     baseURL
     

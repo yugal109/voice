@@ -1,0 +1,23 @@
+.room-name{
+    background-color: rgb(12, 207, 159);
+    width: fit-content;
+    padding:5px;
+    color:white;
+    font-weight: 700;
+}
+.top{
+    display: flex;
+    justify-content: space-between;
+}
+.friends-list{
+    padding:5px;
+    border-top: 2px solid rgb(143, 141, 141);
+    display: flex;
+    justify-content: space-around;
+}
+.invite{
+    background-color: rgb(31, 173, 192);
+    padding:3px;
+    color:white;
+    font-weight: 700;
+}

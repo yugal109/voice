@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import "../css/message.css";
 import Like from "./Like";
-import axios from "../axy";
+import Reactions from "./Reactions";
+import Avatar from "@material-ui/core/Avatar";
+import DoneIcon from '@material-ui/icons/Done';
 
-let socket;
 
-const MyMessage = ({ msg, socket, room, id }) => {
-  const [react, setReact] = useState("");
-  const [reactionArray, setReactionArray] = useState([]);
+// import URL from "../url";
+// import io from "socket.io-client";
+// const ENDPOINT = URL + "/reactions";
+
+// let socket;
+
+const MyMessage = ({ msg, user }) => {
   const [likeList, setLikeList] = useState(false);
-  const [reactionNumber, setReactionNumber] = useState(0);
-  const [fire, setFire] = useState(false);
-
-  useEffect(()=>{
-    
-  },[reactionNumber])
-  
-  const num = (number) => {
-    setReactionNumber(number);
-  };
-
   const handelMessageLike = () => {
     setLikeList(!likeList);
   };
@@ -28,15 +22,7 @@ const MyMessage = ({ msg, socket, room, id }) => {
     <div>
       <div className="right">
         <div style={{ marginRight: 5 }}>
-          {likeList && (
-            <Like
-              key={msg._id}
-              num={num}
-              fire={fire}
-              setFire={setFire}
-              id={msg._id}
-            />
-          )}
+          {likeList && <Like key={msg._id} id={msg._id} />}
         </div>
 
         <div
@@ -46,8 +32,15 @@ const MyMessage = ({ msg, socket, room, id }) => {
           className="myMsg container-fluid"
         >
           {msg?.message}
+          {/* <div className="username">{user.username}</div> */}
+
+          <div className="username"><DoneIcon/></div>
         </div>
-        <span>{reactionNumber}</span>
+        <div style={{padding:5}}>
+          <Avatar style={{width:25,height:25}} src={user.image} />
+        </div>
+        {/* {reactionNumber !== 0 && <span>{reactionNumber}</span>} */}
+        <Reactions msg={msg} />
       </div>
     </div>
   );

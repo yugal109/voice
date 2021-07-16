@@ -1,25 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../css/like.css";
-import { emojify } from "react-emojione";
-import axios from "../axy";
 import io from "socket.io-client";
-const ENDPOINT = "http://localhost:5003/reactions";
+import URL from "../url";
+const ENDPOINT = URL + "/reactions";
 
 let socket;
 
-const Like = ({ id,num }) => {
-  const [reactionnumber, setReactionNumber] = useState(0);
+const Like = ({ id }) => {
   socket = io.connect(ENDPOINT);
 
-  useEffect(() => {
-    socket.emit("join", id);
-    socket.on("getallreacts", (data) => {
-      setReactionNumber(data.react.length);
-      num(data.react.length)
-    });
-  }, [num]);
-
-  const { id: userId, token } =
+  const { id: userId } =
     localStorage.getItem("userInfo") &&
     JSON.parse(localStorage.getItem("userInfo"));
 
@@ -54,9 +44,8 @@ const Like = ({ id,num }) => {
         }}
       >
         <div onClick={handelHaha} style={{ padding: 4 }} className="reacts">
-          {emojify("XD")}
+          Haha
         </div>
-
         <div onClick={handelHeart} style={{ padding: 4 }} className="reacts">
           Heart
         </div>
@@ -64,10 +53,9 @@ const Like = ({ id,num }) => {
           Like
         </div>
         <div onClick={handelSad} style={{ padding: 4 }} className="reacts">
-          {emojify(":'(")}
+          Sad
         </div>
       </div>
-      <span>{reactionnumber}</span>
     </div>
   );
 };

@@ -1,71 +1,75 @@
+.prof {
+  min-height: 85vh;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.image {
+  display: flex;
+  align-items: flex-end;
+}
 
-.prof{
-    min-height: 85vh;
-    background-color: rgba(255, 255, 255, .6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding:20px
+.plus {
+  color: #00e1ff;
+  /* border:9px; */
+  background: black;
+  /* margin:3px; */
+
+  border-radius: 50px;
+}
+.card {
+  min-width: 90%;
+  /* background-color: white; */
+  padding: 20px;
+  border: 1px solid rgb(34, 175, 231);
+  border-radius: 10px;
+}
+
+.topSec {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.names {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#name {
+  font-size: 3vh;
+  text-decoration: solid;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.acc-type{
+    background-color: rgb(105, 119, 247);
+    width: fit-content;
+    color:white;
+    font-weight: 700;
+    padding:3px
     
 }
-.image{
-    display: flex;
-    align-items: flex-end;
+
+.field {
+  width: 50vh;
+  font-size: 20px;
 }
 
-.plus{
-    
-    color:#00e1ff;
-    /* border:9px; */
-    background:black;
-    /* margin:3px; */
-    
-    border-radius: 50px;
-}
-.card{
-    min-width: 90%;
-    background-color: white;
-    padding:20px;
-    border:1px solid rgb(34, 175, 231);
-    border-radius: 10px;
-   
-}
-
-.topSec{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-}
-.names{
-    display: flex;
-    flex-direction: column;
-
-}
-
-#name{
-    font-size: 3vh;
-    text-decoration: solid;
-}
-
-.details{
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.field{
-    width:50vh;
-    font-size: 20px;
-}
-
-.sameLine{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: large;
-    padding:10px
+.sameLine {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: large;
+  padding: 10px;
+  width: 80%;
 }

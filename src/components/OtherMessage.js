@@ -1,25 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import "../css/message.css";
 import Like from "./Like";
-import axios from "../axy";
+import io from "socket.io-client";
+import Avatar from "@material-ui/core/Avatar";
+import Reactions from "./Reactions";
+import DoneIcon from '@material-ui/icons/Done';
 
-const OtherMessage = ({ msg, socket, room, id }) => {
-  const [react, setReact] = useState("");
+import URL from "../url";
+const ENDPOINT = URL + "/reactions";
+
+let socket;
+const OtherMessage = ({ msg, user }) => {
+  // const [react, setReact] = useState("");
   const [likeList, setLikeList] = useState(false);
   const [reactionNumber, setReactionNumber] = useState(0);
-  const [fire, setFire] = useState(false);
+  // const [fire, setFire] = useState(false);
 
   const handelMessageLike = () => {
     setLikeList(!likeList);
   };
 
-  const num = (number) => {
-    setReactionNumber(number);
-  };
+  useMemo(() => {
+    socket = io.connect(ENDPOINT);
+    socket.emit("join", { messageId: msg._id });
+    socket.on("getallreacts", (data) => {
+      setReactionNumber(data.react);
+    });
+  }, [msg._id]);
 
   return (
     <div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{padding:5}}>
+          <Avatar style={{width:25,height:25}} src={user.image} />
+        </div>
         <div
           onTouchMove={PointerEvent}
           onClick={handelMessageLike}
@@ -28,19 +42,13 @@ const OtherMessage = ({ msg, socket, room, id }) => {
           style={{ color: "white", fontWeight: 800 }}
         >
           {msg?.message}
+          <div style={{color:"white",fontSize:7,display:"flex",justifyContent:"flex-end"}}>{user.username}</div>
         </div>
         <div style={{ marginLeft: 5 }}>
-          {likeList && (
-            <Like
-              key={msg._id}
-              num={num}
-              fire={fire}
-              setFire={setFire}
-              id={msg._id}
-            />
-          )}
+          {likeList && <Like  id={msg._id} />}
         </div>
-        <span>{reactionNumber}</span>
+        {/* {reactionNumber !== 0 && <span>{reactionNumber}</span>} */}
+        <Reactions msg={msg}/>
       </div>
     </div>
   );

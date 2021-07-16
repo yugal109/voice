@@ -1,0 +1,65 @@
+.request{
+    height:80vh;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    padding:20px;
+}
+.request-body{
+    background-color: beige;
+    width:40%;
+    height:100%;
+    /* overflow-y: hidden; */
+    overflow-y: scroll;
+    border-radius: 20px;
+
+}
+.request-body::-webkit-scrollbar{
+    display: none;
+}
+.friends-header{
+    display: flex;
+    justify-content: center;
+}
+.invitation-header{
+    display: flex;
+    justify-content: center;
+
+}
+.request-item{
+    background-color: rgb(88, 158, 238);
+    margin:10px;
+    padding:20px;
+    font-weight: 700;
+    border:1px solid rgb(252, 249, 249);
+    color:white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}.request-item-message{
+    display: flex;
+    align-items: center;
+}
+
+@media  screen and (max-width: 800px) {
+    .request{
+        height:80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding:20px;
+    }
+    .request-body{
+        background-color: beige;
+        width:90%;
+        height:100%;
+        /* overflow-y: hidden; */
+        overflow-y: scroll;
+        border-radius: 20px;
+        margin-bottom: 20px;
+    }
+    
+  }

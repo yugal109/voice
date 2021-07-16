@@ -16,11 +16,8 @@ const RegisterScreen = ({ history }) => {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(false)
 
-  const [firstname, setFirstname] = useState("")
-  const [lastname, setLastname] = useState("")
+  const [fullname, setFullname] = useState("")
   const [username, setUsername] = useState("")
-  const [address, setAddress] = useState("")
-  const [phonenumber, setPhonenumber] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmpassword, setConfirmPassword] = useState("")
@@ -35,12 +32,9 @@ const RegisterScreen = ({ history }) => {
     } else {
       setPassNotMatch("")
       axios.post("/users", {
-        firstname,
-        lastname,
+        fullname,
         email,
         username,
-        phonenumber,
-        address,
         password
       })
         .then((response) => {
@@ -67,19 +61,13 @@ const RegisterScreen = ({ history }) => {
             <input
               type="text"
               name="fName"
-              placeholder="First Name"
+              placeholder="Full Name"
               autofocus=""
               required
-              onChange={(e) => setFirstname(e.target.value)}
+              onChange={(e) => setFullname(e.target.value)}
             />
           </div>
 
-          <div class="textbox">
-            <input type="text" name="lName" placeholder="Last Name" required
-              onChange={(e) => setLastname(e.target.value)}
-
-            />
-          </div>
 
           <div class="textbox">
             <input type="text" name="uname" placeholder="Username" required
@@ -115,19 +103,8 @@ const RegisterScreen = ({ history }) => {
             />
           </div>
 
-          <div class="textbox">
-            <input type="text" name="phNum" placeholder="Phone Number" required
-              onChange={(e) => setPhonenumber(e.target.value)}
+          
 
-            />
-          </div>
-
-          <div class="textbox">
-            <input type="text" name="address" placeholder="Address" required
-              onChange={(e) => setAddress(e.target.value)}
-
-            />
-          </div>
           {loading ? <Spinner/> :
             <div class="buttons">
               <input type="submit" class="btn" value="Register" />

@@ -4,22 +4,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding:20px
+  /* padding:20px */
   
 }
 .card{
-  min-width: 70%;
+  width: 70%;
   background-color: white;
   /* padding:20px; */
   border:1px solid rgb(34, 175, 231);
   border-radius: 10px;
   background-color:beige;
 }
+.card ::-webkit-scrollbar{
+  display: none;
+}
 .messages{
   height: 70vh;
   overflow-y: scroll;
   overflow-x: hidden;
   padding-bottom:10px;
+  padding-top: 10px;
 }
 .myMsg{
   margin:10px 0 0 0;
@@ -28,16 +32,55 @@
   border-radius: 5px;
   width:50%;
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   justify-content: flex-end;
   width:fit-content;
   height: fit-content;
   background-color:rgb(247, 248, 246);
+  
 
+}
+.username{
+  color: black;
+  font-size: 7px;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 100;
 }
 .right{
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+}
+.top-header{
+  border-bottom: 3px solid rgb(139, 139, 139);
+  padding:10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.message-banner{
+  background-color: blue;
+  padding:15px 15px 15px 15px;
+  border-radius: 10px;
+  color:white;
+  font-weight: 800;
+  font-size:2vh;
+  width:fit-content
+}
+.bottom{
+  border-top: 3px solid rgb(139, 139, 139);
+  padding-bottom: 20px;
+}
+.bottom-form{
+  display:flex;
+  justify-content: center;
+  /* align-items: center; */
+  width:100%
+
+}
+.field{
+  width: 80%;
 }
 .othersMsg{
   margin:10px 0 0 0;
@@ -47,6 +90,25 @@
   border-radius: 5px;
   width:fit-content;
   height: fit-content;
-  background-color:skyblue;
+  background-color:rgb(12, 207, 159);
+  /* color:rgb(185, 184, 184) */
 
+}
+/* hsl(197, 93%, 60%); */
+.message-box{
+  background-color: hsl(197, 93%, 60%);
+  padding:5px;
+  color: white;
+  font-weight: 800;
+}
+
+@media screen and (max-width:800px){
+  .card{
+    width: 100%;
+    background-color: white;
+    /* padding:20px; */
+    border:1px solid rgb(34, 175, 231);
+    border-radius: 10px;
+    background-color:beige;
+  }
 }

@@ -3,15 +3,11 @@ import React,{useEffect,useState} from 'react'
 import fire from "../firebase"
 let messageRef=fire.database().ref("messages")
 
-
-
-
 const MsgScreen = () => {
     const [msg,setMsg]=useState([])
     const [text,setText]=useState("")
 
     useEffect(() => {
-        
         messageRef.once('value', function(snapshot) {
             let messages=[]
             snapshot.forEach(function(childSnapshot) {

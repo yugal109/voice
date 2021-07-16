@@ -15,7 +15,7 @@ const LogoutScreen = ({history}) => {
     }
     return (
         <section>
-        <form>
+        <form >
             <div class="login-box">
 
                 <h1>Sign Out</h1>

@@ -1,0 +1,38 @@
+.details{
+    background-color: white;
+    width: 50%
+}
+.inside-box{
+    display:flex;
+    justify-content: center;
+}
+.users{
+    /* border:3px solid black; */
+    border-top:3px solid rgb(165, 163, 163);
+    /* border-bottom:3px solid rgb(165, 163, 163); */
+    padding:7px
+}
+.list-items{
+    display: flex;
+    align-items: center;
+}
+.modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.admin-tag{
+    margin-left: 5px;
+    background-color: rgb(130, 204, 46);
+    padding:2px 4px 2px 4px;
+    font-size:10px;
+    font-weight: 700;
+    color:white
+}
+
+.paper{
+    background-color: white;
+    border:2px solid rgb(165, 163, 163);
+    padding: 30px 30px 30px 30px
+}
